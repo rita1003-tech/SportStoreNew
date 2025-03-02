@@ -26,10 +26,21 @@ namespace SportsStore {
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddMvc(r => r.EnableEndpointRouting = false);
             services.AddMemoryCache();
-            services.AddSession();
+            services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = System.TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
@@ -60,10 +71,19 @@ namespace SportsStore {
 
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
+            app.UseRouting();
+            app.UseStaticFiles();
+            app.UseSession();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{cntroller=Cart}/{action=Index}/{id?}");
+            });
             SeedData.EnsurePopulated(app);
         }
     }
 }
 
 
-.....................

@@ -1,9 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace SportsStore.Models {
 
     public class Cart {
+
+        public int CartId { get; set; }
+        public int CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
+        public Customer Customer { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int Id { get; set; }
+
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
         private List<CartLine> lineCollection = new List<CartLine>();
 
         public virtual void AddItem(Product product, int quantity) {
