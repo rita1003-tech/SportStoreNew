@@ -16,9 +16,5 @@ namespace SportsStore.Models
         public int Quantity { get; set; }
     }
 
-    public class ApplicationDbContext : DbContext
-    {
-        public DbSet<CartItem> CartItems { get; set; }
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-    }
+   
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsStore.Extensions;
 using SportsStore.Infrastructure;
 using SportsStore.Models;
@@ -62,17 +63,17 @@ namespace SportsStore.Controllers {
         }
         public IActionResult CartControllerIndex()
         {
-            var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
+            var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart") ?? new List<Models.CartItem>();
             return View(cart);
         }
         public IActionResult CartControllerAddToCart(int productId)
 
         {
-            var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
+            var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart") ?? new List<Models.CartItem>();
             var existingItem = cart.FirstOrDefault(p => p.ProductId == productId);
             if (existingItem == null)
             {
-                cart.Add(new CartItem { ProductId = productId, ProductName = "Product" + productId, Quantity = 1 });
+                cart.Add(new Models.CartItem { ProductId = productId, ProductName = "Product" + productId, Quantity = 1 });
             }
             else
             {
@@ -85,7 +86,7 @@ namespace SportsStore.Controllers {
         }
         public IActionResult RemoveFromCart(int productId)
         {
-            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+            var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart");
             if (cart != null)
             {
                 var itemToRemove = cart.FirstOrDefault(p => p.ProductId == productId);
@@ -109,7 +110,7 @@ namespace SportsStore.Controllers {
 
             if (item == null)
             {
-                cart.Items.Add(new CartItem { ProductId = productId, Quantity = 1 });
+                cart.Items.Add(new Models.CartItem { ProductId = productId, Quantity = 1 });
             }
             else
             {
@@ -121,7 +122,7 @@ namespace SportsStore.Controllers {
         public async Task<IActionResult> Index()
         {
             var cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync();
-            return View(cart.Itemss);
+            return View(cart.Items);
         }
 
     }

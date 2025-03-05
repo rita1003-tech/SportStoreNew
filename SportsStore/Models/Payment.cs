@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Transactions;
 
 namespace SportsStore.Models
 {
@@ -13,8 +12,6 @@ namespace SportsStore.Models
         public string PaymentMethod { get; set; }
         public string PaymentStatus { get; set; }
         public string TransactionId { get; set; }
-        [ForeignKey("TransactionId")]
-        public Transaction Transaction { get; set; }
         public DateTime PaymentDate { get; set; }
     }
 }
