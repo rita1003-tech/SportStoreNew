@@ -20,19 +20,23 @@ namespace SportsStore.Controllers {
             repository = repo;
             _context = context;
         }
-      
-        public ViewResult Index(string returnUrl) {
-            return View(new CartIndexViewModel {
+
+        public ViewResult Index(string returnUrl)
+        {
+            return View(new CartIndex
+            {
                 Cart = GetCart(),
                 ReturnUrl = returnUrl
             });
         }
 
-        public RedirectToActionResult AddToCart(int productId, string returnUrl) {
+        public RedirectToActionResult AddToCart(int productId, string returnUrl)
+        {
             Product product = repository.Products
                 .FirstOrDefault(p => p.ProductID == productId);
 
-            if (product != null) {
+            if (product != null)
+            {
                 Cart cart = GetCart();
                 cart.AddItem(product, 1);
                 SaveCart(cart);
@@ -84,46 +88,12 @@ namespace SportsStore.Controllers {
             return RedirectToAction("Index");
 
         }
-        public IActionResult RemoveFromCart(int productId)
-        {
-            var cart = HttpContext.Session.Get<List<Models.CartItem>>("Cart");
-            if (cart != null)
-            {
-                var itemToRemove = cart.FirstOrDefault(p => p.ProductId == productId);
-                if (itemToRemove != null)
-                {
-                    cart.Remove(itemToRemove);
-                    HttpContext.Session.Set("Cart", cart);
-                }
-            }
-            return RedirectToAction("Index");
-        }
+       
         public IActionResult ClearCart()
         {
             HttpContext.Session.Remove("Cart");
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> AddToCart(int productId)
-        {
-            var cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync() ?? new Cart();
-            var item = cart.Items.FirstOrDefault(i => i.ProductId == productId);
-
-            if (item == null)
-            {
-                cart.Items.Add(new Models.CartItem { ProductId = productId, Quantity = 1 });
-            }
-            else
-            {
-                item.Quantity++;
-            }
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-        public async Task<IActionResult> Index()
-        {
-            var cart = await _context.Carts.Include(c => c.Items).FirstOrDefaultAsync();
-            return View(cart.Items);
-        }
-
+      
     }
 }

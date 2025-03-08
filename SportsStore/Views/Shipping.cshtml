@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shipping Information Form</title>
+        <link rel="stylesheet" href="styles.css"> <!-- Optional: Add your CSS file -->
+    </head>
+    <body>
+        <div class="container">
+            <h1>Shipping Information Form</h1>
+            <form action="/submit-shipping" method="POST">
+                <!-- ShippingId (Hidden) -->
+                <input type="hidden" name="ShippingId" value="">
+
+                <!-- OrderId -->
+                <div class="form-group">
+                    <label for="orderId">Order ID</label>
+                    <input type="number" id="orderId" name="OrderId" value="" required>
+                </div>
+
+                <!-- TrackingNumber -->
+                <div class="form-group">
+                    <label for="trackingNumber">Tracking Number</label>
+                    <input type="text" id="trackingNumber" name="TrackingNumber" value="" required>
+                </div>
+
+                <!-- Carrier -->
+                <div class="form-group">
+                    <label for="carrier">Carrier</label>
+                    <input type="text" id="carrier" name="Carrier" value="" required>
+                </div>
+
+                <!-- EstimatedDelivery -->
+                <div class="form-group">
+                    <label for="estimatedDelivery">Estimated Delivery Date</label>
+                    <input type="date" id="estimatedDelivery" name="EstimatedDelivery" value="" required>
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="status">Shipping Status</label>
+                    <select id="status" name="Status" required>
+                        <option value="">Select Status</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Out for Delivery">Out for Delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Returned">Returned</option>
+                    </select>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <script src="script.js"></script> <!-- Optional: Add your JS file -->
+    </body>
+    </html>
+
+}

@@ -7,9 +7,11 @@ namespace SportsStore.Controllers {
 
     public class ProductController : Controller {
         private IProductRepository repository;
+        private ApplicationDbContext _context;
         public int PageSize = 4;
-
-        public ProductController(IProductRepository repo) {
+        public ProductController(ApplicationDbContext context,IProductRepository repo)
+        {
+            _context = context;   
             repository = repo;
         }
 
@@ -30,5 +32,74 @@ namespace SportsStore.Controllers {
                 },
                 CurrentCategory = category
             });
+        
+       
+        public ActionResult Index()
+        {
+
+            return View(_context.Products.ToList());
+        }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult Create(Product model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            _context.Products.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+        }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var model = _context.Products.FirstOrDefault(x => x.ProductID == id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Edit(Product model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            _context.Products.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
+
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var model = _context.Products.FirstOrDefault(x => x.ProductID == id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+
+        }
+        [HttpPost]
+        public ActionResult Delete(Product model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            _context.Products.Remove(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
+

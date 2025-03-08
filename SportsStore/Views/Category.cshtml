@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Category Form</title>
+        <link rel="stylesheet" href="styles.css"> <!-- Optional: Add your CSS file -->
+    </head>
+    <body>
+        <div class="container">
+            <h1>Category Form</h1>
+            <form action="/submit-category" method="POST">
+                <!-- CategoryId (Hidden) -->
+                <input type="hidden" name="CategoryId" value="">
+
+                <!-- Category Name -->
+                <div class="form-group">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" id="categoryName" name="Name" value="" required>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <script src="script.js"></script> <!-- Optional: Add your JS file -->
+    </body>
+    </html>
+}
