@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<SportsStore.Models.Shipping>
+
+@{
+    ViewData["Title"] = "Shipping Index";
+}
+
+<h1>Shipping List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tracking Number</th>
+            <th>Carrier</th>
+            <th>Estimated Delivery</th>
+            <th>Status</th>
+            <th>Order ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TrackingNumber</td>
+                <td>@item.Carrier</td>
+                <td>@item.EstimatedDelivery.ToString("yyyy-MM-dd")</td>
+                <td>@item.Status</td>
+                <td>@item.OrderId</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.ShippingId })">Edit</a> |
+                    <a href="@Url.Action("Delete", new { id = item.ShippingId })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a href="@Url.Action("Create")">Create New Shipping</a>
+</p>
+

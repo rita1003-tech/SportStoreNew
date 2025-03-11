@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model IEnumerable<SportsStore.Models.Payment>
+
+    <h2>Payments List</h2>
+
+    <p>
+        <a href="@Url.Action("Create")">Create New Payment</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.PaymentId)</th>
+                <th>@Html.DisplayNameFor(model => model.OrderId)</th>
+                <th>@Html.DisplayNameFor(model => model.PaymentMethod)</th>
+                <th>@Html.DisplayNameFor(model => model.PaymentStatus)</th>
+                <th>@Html.DisplayNameFor(model => model.TransactionId)</th>
+                <th>@Html.DisplayNameFor(model => model.PaymentDate)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Model)
+            {
+                <tr>
+                    <td>@payment.PaymentId</td>
+                    <td>@payment.OrderId</td>  <!-- Optionally display more details from Order -->
+                    <td>@payment.PaymentMethod</td>
+                    <td>@payment.PaymentStatus</td>
+                    <td>@payment.TransactionId</td>
+                    <td>@payment.PaymentDate.ToShortDateString()</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = payment.PaymentId })">Edit</a> |
+                        <a href="@Url.Action("Delete", new { id = payment.PaymentId })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+}

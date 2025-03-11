@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model SportsStore.Models.Product
+
+    ViewBag.Title = "Add to Cart";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    <strong>Price:</strong> @Model.Price.ToString("C")
+</div>
+
+<div>
+    <form asp-action="AddToCart" method="post">
+        <input type="hidden" name="productId" value="@Model.ProductID" />
+        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+        <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+</div>
+
+<div>
+    <a href="@ViewBag.ReturnUrl" class="btn btn-secondary">Continue Shopping</a>
+</div>
+
+

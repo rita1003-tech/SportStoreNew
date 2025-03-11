@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model SportsStore.Models.Product
+    ViewBag.Title = "Create Product";
+}
+
+<h2>Create New Product</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="Name">Product Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" id="Description" name="Description" required>@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" id="Price" name="Price" step="0.01" value="@Model.Price" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Stock">Stock</label>
+        <input type="number" class="form-control" id="Stock" name="Stock" value="@Model.Stock" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Category">Category</label>
+        <input type="text" class="form-control" id="Category" name="Category" value="@Model.Category" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+}
+
+

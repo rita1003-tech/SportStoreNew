@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SportsStore.Models.Review
+
+@{
+    ViewData["Title"] = "Create Review";
+}
+
+<h2>Create Review</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="CustomerId">Customer</label>
+        <select asp-for="CustomerId" class="form-control" asp-items="@(new SelectList(ViewBag.Customers, "CustomerId", "Name"))">
+            <option value="">Select Customer</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="ProductId">Product</label>
+        <select asp-for="ProductId" class="form-control" asp-items="@(new SelectList(ViewBag.Products, "ProductId", "Name"))">
+            <option value="">Select Product</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Rating">Rating</label>
+        <input type="number" class="form-control" asp-for="Rating" min="1" max="5" />
+    </div>
+
+    <div class="form-group">
+        <label for="Comment">Comment</label>
+        <textarea class="form-control" asp-for="Comment"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="CreatedAt">Created At</label>
+        <input type="datetime-local" class="form-control" asp-for="CreatedAt" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Review</button>
+</form>
+

@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+   @model IEnumerable<SportsStore.Models.CartItem>
+
+    ViewBag.Title = "Cart Items";
+}
+
+<h2>Cart Items</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Product.Price.ToString("C")</td>
+                <td>@(item.Quantity * item.Product.Price).ToString("C")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CartItemId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CartItemId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Add New Cart Item", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+
+

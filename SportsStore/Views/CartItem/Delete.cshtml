@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model SportsStore.Models.CartItem
+
+    ViewBag.Title = "Delete Cart Item";
+}
+
+<h2>Delete Cart Item</h2>
+
+<p>Are you sure you want to delete the cart item for "<strong>@Model.ProductName</strong>"?</p>
+
+@using (Html.BeginForm())
+{
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+}
+
+

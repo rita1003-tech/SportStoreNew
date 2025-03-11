@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SportsStore.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Delete Order Detail";
+}
+
+<h1>Delete Order Detail</h1>
+
+<h3>Are you sure you want to delete this Order Detail?</h3>
+
+<div>
+    <strong>Order: </strong>@Model.Order.OrderId
+</div>
+<div>
+    <strong>Product: </strong>@Model.Product.Name
+</div>
+<div>
+    <strong>Quantity: </strong>@Model.Quantity
+</div>
+<div>
+    <strong>Unit Price: </strong>@Model.UnitPrice
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="OrderDetailId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+</form>
